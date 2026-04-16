@@ -11,7 +11,7 @@ declare global {
 }
 
 const mongoUri =
-  process.env.MONGO_URI ?? (() => { throw new Error("MONGO_URI is not set"); })();
+  process.env.MONGO_URI;
 
 const cached = global.mongooseConnection ?? {
   conn: null,
@@ -23,6 +23,10 @@ global.mongooseConnection = cached;
 export async function connectDB() {
   if (cached.conn) {
     return cached.conn;
+  }
+
+  if (!mongoUri) {
+    throw new Error("MONGO_URI is not set");
   }
 
   if (!cached.promise) {
