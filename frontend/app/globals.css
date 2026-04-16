@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #F4EFE7;
+  color: #121212;
+}
+
+html {
+  scroll-behavior: smooth;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at top, rgba(200,161,101,0.14), transparent 30%), linear-gradient(180deg, #F7F4EF 0%, #EFE9E0 100%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+picture {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: rgba(200,161,101,0.18);
+}
+
+.site-shell {
+  width: min(80%, 1600px);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .site-shell {
+    width: min(92%, 1600px);
+  }
+}
+
+@media (min-width: 640px) {
+  .site-shell {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-shell {
+    padding-inline: 2rem;
+  }
+}
