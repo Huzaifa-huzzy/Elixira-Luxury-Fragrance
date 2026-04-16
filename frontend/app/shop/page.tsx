@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import useSWR from "swr";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { fetcher } from "@/lib/api";
+import { productFetcher } from "@/lib/productsApi";
 import { CustomDropdown } from "@/components/CustomDropdown";
 
 interface Product {
@@ -63,11 +63,11 @@ function renderStars(rating: number) {
   );
 }
 
-export default function ShopPage() {
+function ShopPageContent() {
   const searchParams = useSearchParams();
   const { data, isLoading } = useSWR(
     `/products?pageNumber=1&pageSize=${API_PAGE_SIZE}`,
-    fetcher,
+    productFetcher,
   );
 
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -559,6 +559,20 @@ export default function ShopPage() {
         </div>
       )}
     </section>
+  );
+}
+
+export default function ShopPage() {
+  return (
+    <Suspense
+      fallback={
+        <section className="rounded-[2rem] border border-black/10 bg-white p-8 shadow-luxe">
+          Loading products...
+        </section>
+      }
+    >
+      <ShopPageContent />
+    </Suspense>
   );
 }
 

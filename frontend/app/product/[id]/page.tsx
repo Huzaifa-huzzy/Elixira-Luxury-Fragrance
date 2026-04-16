@@ -1,6 +1,6 @@
 import Image from 'next/image';
+import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { fetchProductById } from '@/lib/api';
 import { ProductDetailClient } from '@/components/ProductDetailClient';
 
 interface ProductPageProps {
@@ -9,8 +9,23 @@ interface ProductPageProps {
 
 async function getProduct(id: string) {
   try {
-    const response = await fetchProductById(id);
-    return response.data;
+    const requestHeaders = headers();
+    const host = requestHeaders.get('host');
+    const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
+
+    if (!host) {
+      return null;
+    }
+
+    const response = await fetch(`${protocol}://${host}/api/products/${id}`, {
+      next: { revalidate: 60 },
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    return response.json();
   } catch {
     return null;
   }

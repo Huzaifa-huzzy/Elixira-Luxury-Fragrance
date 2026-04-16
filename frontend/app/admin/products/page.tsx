@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { fetcher } from '@/lib/api';
-import api from '@/lib/api';
+import { productFetcher } from '@/lib/productsApi';
+import api from '@/lib/productsApi';
 
 interface Product {
   _id: string;
@@ -19,8 +19,8 @@ export default function AdminProductsPage() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetcher('/products').then((data) => {
-      setProducts(data);
+    productFetcher('/products').then((data) => {
+      setProducts(data.products ?? []);
       setLoading(false);
     }).catch(() => {
       setMessage('Could not load admin products.');

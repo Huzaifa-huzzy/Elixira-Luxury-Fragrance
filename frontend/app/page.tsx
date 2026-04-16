@@ -5,7 +5,7 @@ import useSWR from 'swr';
 import Link from 'next/link';
 import Image from 'next/image';
 import { HomeFeatureCard } from '@/components/HomeFeatureCard';
-import { fetcher } from '@/lib/api';
+import { productFetcher } from '@/lib/productsApi';
 
 const categoryCards = [
   {
@@ -102,7 +102,7 @@ interface Product {
 }
 
 export default function HomePage() {
-  const { data, isLoading } = useSWR('/products?pageNumber=1&pageSize=1000', fetcher);
+  const { data, isLoading } = useSWR('/products?pageNumber=1&pageSize=1000', productFetcher);
   const [activeCategory, setActiveCategory] = useState('Loyalty');
   const [slideIndex, setSlideIndex] = useState(0);
 
