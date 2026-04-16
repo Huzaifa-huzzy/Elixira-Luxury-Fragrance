@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/server/db";
 import Product from "@/lib/server/models/Product";
 
+// Mongoose does not work in Edge runtime; force Node.js for this route.
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 interface RouteContext {
   params: {
     id: string;

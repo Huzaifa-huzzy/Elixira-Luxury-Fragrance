@@ -3,6 +3,11 @@ import mongoose from "mongoose";
 import { connectDB } from "@/lib/server/db";
 import Product from "@/lib/server/models/Product";
 
+// Important: Next.js can run route handlers in Edge runtime depending on setup.
+// Mongoose does not work in Edge, so force Node.js runtime.
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 function csvFilter(searchParams: URLSearchParams, key: string) {
   const value = searchParams.get(key);
   return value ? { [key]: { $in: value.split(",") } } : {};
