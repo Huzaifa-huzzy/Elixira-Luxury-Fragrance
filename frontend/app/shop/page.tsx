@@ -65,7 +65,7 @@ function renderStars(rating: number) {
 
 function ShopPageContent() {
   const searchParams = useSearchParams();
-  const { data, isLoading } = useSWR(
+  const { data, isLoading, error } = useSWR(
     `/products?pageNumber=1&pageSize=${API_PAGE_SIZE}`,
     productFetcher,
   );
@@ -176,6 +176,18 @@ function ShopPageContent() {
 
   if (isLoading) {
     return <section className="rounded-[2rem] border border-black/10 bg-white p-8 shadow-luxe">Loading products...</section>;
+  }
+
+  if (error) {
+    const message = error instanceof Error ? error.message : "Unable to load products";
+    return (
+      <section className="rounded-[2rem] border border-black/10 bg-white p-8 shadow-luxe">
+        <p className="text-sm font-semibold text-charcoal">Products load failed</p>
+        <p className="mt-2 text-sm leading-7 text-stone">
+          {message}. Try opening <a className="font-medium text-charcoal underline" href="/api/products">/api/products</a> to see the API response.
+        </p>
+      </section>
+    );
   }
 
   return (
