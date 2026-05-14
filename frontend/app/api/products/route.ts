@@ -57,6 +57,7 @@ export async function GET(request: NextRequest) {
       pages: Math.ceil(count / pageSize),
     });
   } catch (error) {
+    console.error("[api/products] GET failed:", error);
     const message =
       error instanceof Error ? error.message : "Unable to fetch products";
     return NextResponse.json({ message }, { status: 500 });
@@ -93,6 +94,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(product, { status: 201 });
   } catch (error) {
+    console.error("[api/products] POST failed:", error);
     const message =
       error instanceof Error ? error.message : "Unable to create product";
     return NextResponse.json({ message }, { status: 500 });

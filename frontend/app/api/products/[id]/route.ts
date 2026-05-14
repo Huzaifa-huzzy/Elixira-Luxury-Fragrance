@@ -24,6 +24,7 @@ export async function GET(_request: Request, { params }: RouteContext) {
 
     return NextResponse.json(product);
   } catch (error) {
+    console.error("[api/products/:id] GET failed:", error);
     const message =
       error instanceof Error ? error.message : "Unable to fetch product";
     return NextResponse.json({ message }, { status: 500 });
