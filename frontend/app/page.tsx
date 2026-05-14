@@ -298,7 +298,7 @@ export default function HomePage() {
             </div>
           ) : shownProducts.length === 0 ? (
             <div className="rounded-xl bg-ivory p-6 text-center text-sm text-stone">
-              {activeCategory} category ke products database me nahi mile.
+              No products were found in the database for the {activeCategory} category.
             </div>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
